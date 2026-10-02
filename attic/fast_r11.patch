@@ -1,0 +1,22 @@
+--- r11_lut.py
++++ r11_lut.py
+@@ -107,13 +107,11 @@
+             
+         for b in [1.0, 1.4, 1.8, 2.2]:
+             d_bin = torch.from_numpy(d_emul[b][bmask]).cuda()
+-            best_g, best_h = -1, -1
+-            for h in h_grid:
+-                cov = (d_bin <= h).float().mean()
+-                g = torch.exp(-2*h / SIGMA) * cov
+-                if g > best_g:
+-                    best_g = g
+-                    best_h = h
++            
++            inside = (d_bin.unsqueeze(0) <= h_grid.unsqueeze(1))
++            cov = inside.float().mean(dim=1)
++            g = torch.exp(-2 * h_grid / SIGMA) * cov
++            best_h = h_grid[torch.argmax(g)]
+             LUT_b[b][bin_idx, c] = best_h.item()
+-            print(f"Done bin {bin_idx} channel {c} b {b}", flush=True)
+ 
+ print("Unfit bins (<200 elements):", unfit_bins, flush=True)

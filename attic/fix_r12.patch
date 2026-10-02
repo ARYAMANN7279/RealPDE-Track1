@@ -1,0 +1,12 @@
+--- r12_armA.py
++++ r12_armA.py
+@@ -60,7 +60,8 @@
+ def custom_load_baseline(path, device):
+     from load_baseline import load_baseline
+     model, _ = load_baseline(path, device="cpu")
+-    model.load_state_dict(torch.load(f"{B}/data/comp_real/sim_real_fno.pth", map_location="cpu"))
++    sd = torch.load(f"{B}/data/comp_real/sim_real_fno.pth", map_location="cpu")
++    model.load_state_dict(sd.get("model_state_dict", sd))
+     return model, None
+ sub_r9.load_baseline = custom_load_baseline
+ 

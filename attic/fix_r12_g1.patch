@@ -1,0 +1,45 @@
+--- r12_armA.py
++++ r12_armA.py
+@@ -52,24 +52,26 @@
+ 
+ # Kit Base Evaluation (G1)
+ print("Evaluating Kit Base (G1)...")
+-sys.path.insert(0, f"{B}/_r9")
+-import submission as sub_r9
+-def custom_load_baseline(path, device):
+-    from load_baseline import load_baseline
+-    model, _ = load_baseline(path, device="cpu")
+-    sd = torch.load(f"{B}/data/comp_real/sim_real_fno.pth", map_location="cpu")
+-    model.load_state_dict(sd.get("model_state_dict", sd))
+-    return model, None
+-sub_r9.load_baseline = custom_load_baseline
++sys.path.insert(0, f"{B}/_r9") # keep for load_baseline
++from load_baseline import load_baseline
++fno_model, _ = load_baseline(f"{B}/data/comp_real/sim_real_fno.pth", device=DEV)
++sd = torch.load(f"{B}/data/comp_real/sim_real_fno.pth", map_location=DEV)
++fno_model.load_state_dict(sd.get("model_state_dict", sd))
++fno_model.eval()
+ 
+ P_list, T_list = [], []
+-for i in range(0, len(va_sub), 120):
+-    x, y = batch_np(va_sub[i:i+120])
+-    res = sub_r9.predict(x)
+-    P_list.append(res["prediction"])
+-    T_list.append(y)
+-P = np.concatenate(P_list, 0)
+-T = np.concatenate(T_list, 0)
++with torch.no_grad():
++    for i in range(0, len(va_sub), 40):
++        x, y = batch_np(va_sub[i:i+40])
++        xt = torch.from_numpy(x).to(DEV)
++        xt_norm = (xt - MI) / SI
++        out_norm = fno_model(xt_norm)
++        out = out_norm * ST + MT
++        P_list.append(out.cpu().numpy())
++        T_list.append(y)
++    P = np.concatenate(P_list, 0)
++    P[..., 2] = 0.0
++    T = np.concatenate(T_list, 0)
+ 
+ rel_l2_err = float(np.mean(S.rel_l2_per_sample(P, T, 2)))
+ tke_err = float(np.mean(S.tke_rel_l2_per_sample(P, T, 2)))

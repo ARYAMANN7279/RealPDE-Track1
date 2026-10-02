@@ -1,0 +1,10 @@
+--- r12_armA.py
++++ r12_armA.py
+@@ -108,8 +108,6 @@
+     loss = F.mse_loss(pred_norm, yt_norm)
+     loss.backward()
+     
+-    torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+-    
+     opt.step()
+     sched.step()

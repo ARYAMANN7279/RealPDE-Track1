@@ -1,0 +1,26 @@
+--- r12_armA.py
++++ r12_armA.py
+@@ -75,10 +75,7 @@
+             xt = torch.from_numpy(x).to(DEV)
+             xt_norm = (xt - MI) / SI
+-            # unet expects (B, C, T, X, Y)
+-            xt_in = xt_norm.permute(0, 4, 1, 2, 3)
+-            yt_pred_norm = model(xt_in)
+-            yt_pred_norm = yt_pred_norm.permute(0, 2, 3, 4, 1)
++            yt_pred_norm = model(xt_norm)
+             yt_pred = yt_pred_norm * ST + MT
+             P_list.append(yt_pred.cpu().numpy())
+@@ -107,13 +104,8 @@
+     
+     xt_norm = (xt - MI) / SI
+     yt_norm = (yt - MT) / ST
+     
+-    xt_in = xt_norm.permute(0, 4, 1, 2, 3)
+-    yt_in = yt_norm.permute(0, 4, 1, 2, 3)
+-    
+     opt.zero_grad()
+-    pred_norm = model(xt_in)
+-    loss = F.mse_loss(pred_norm, yt_in)
++    pred_norm = model(xt_norm)
++    loss = F.mse_loss(pred_norm, yt_norm)
+     loss.backward()
