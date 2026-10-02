@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "codabench": {
+      "command": "/Users/aryamannsrivastava/Desktop/sem7/UGP/venv/bin/python3",
+      "args": ["/Users/aryamannsrivastava/Desktop/sem7/UGP/mcp/codabench_mcp.py"]
+    }
+  }
+}

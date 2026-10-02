@@ -1,0 +1,23 @@
+# FITBASE queue 1 -- gates first, then controls, then arms; a cached incremental screen after EVERY arm.
+# One job at a time on GPU 0; fb_queue.sh checks thermals + occupancy before every launch.
+screen0|fb_build.py --tag fb --split re_lohi --aug none --steps 1 --evalevery 1
+sv3rep_s2000|fb_r45.py --tag fb_sv3_3e5 --split none --aug none --bs 16 --wtke 0.10 --steps 16000 --seed 206 --lr 3e-5 --wd 1e-6 --evalevery 2000 --snap_at 2000 --stop_at 2000 --gpu 0
+screen_C2|fb_build.py --tag fb --split re_lohi --aug none --steps 1 --evalevery 1
+ftall_rep_w15_lr3|fb_ftall.py --lr 3e-5 --wtke 0.15 --steps 6000 --bs 8 --gpu 0 --tag fb_w15_lr3
+ftall_rep_w33_lr3|fb_ftall.py --lr 3e-5 --wtke 0.33 --steps 6000 --bs 8 --gpu 0 --tag fb_w33_lr3
+screen_C1|fb_build.py --tag fb --split re_lohi --aug none --steps 1 --evalevery 1
+ftall_w15_lr6|fb_ftall.py --lr 6e-5 --wtke 0.15 --steps 6000 --bs 8 --gpu 0 --tag fb_w15_lr6
+ftall_w33_lr6|fb_ftall.py --lr 6e-5 --wtke 0.33 --steps 6000 --bs 8 --gpu 0 --tag fb_w33_lr6
+screen_A1a|fb_build.py --tag fb --split re_lohi --aug none --steps 1 --evalevery 1
+sv3_6e5_s2000|fb_r45.py --tag fb_sv3_6e5 --split none --aug none --bs 16 --wtke 0.10 --steps 16000 --seed 206 --lr 6e-5 --wd 1e-6 --evalevery 2000 --snap_at 2000 --stop_at 2000 --gpu 0
+screen_A2a|fb_build.py --tag fb --split re_lohi --aug none --steps 1 --evalevery 1
+ftall_w15_lr10|fb_ftall.py --lr 1e-4 --wtke 0.15 --steps 6000 --bs 8 --gpu 0 --tag fb_w15_lr10
+ftall_w33_lr10|fb_ftall.py --lr 1e-4 --wtke 0.33 --steps 6000 --bs 8 --gpu 0 --tag fb_w33_lr10
+screen_A1b|fb_build.py --tag fb --split re_lohi --aug none --steps 1 --evalevery 1
+sv3_1e4_s2000|fb_r45.py --tag fb_sv3_1e4 --split none --aug none --bs 16 --wtke 0.10 --steps 16000 --seed 206 --lr 1e-4 --wd 1e-6 --evalevery 2000 --snap_at 2000 --stop_at 2000 --gpu 0
+screen_A2b|fb_build.py --tag fb --split re_lohi --aug none --steps 1 --evalevery 1
+ftall_w15_lr3_12k|fb_ftall.py --lr 3e-5 --wtke 0.15 --steps 12000 --bs 8 --gpu 0 --tag fb_w15_lr3_12k
+ftall_w33_lr3_12k|fb_ftall.py --lr 3e-5 --wtke 0.33 --steps 12000 --bs 8 --gpu 0 --tag fb_w33_lr3_12k
+screen_A3a|fb_build.py --tag fb --split re_lohi --aug none --steps 1 --evalevery 1
+sv3_3e5_16k|fb_r45.py --tag fb_sv3_3e5_16k --split none --aug none --bs 16 --wtke 0.10 --steps 16000 --seed 206 --lr 3e-5 --wd 1e-6 --evalevery 2000 --snap_at 2000 --gpu 0
+screen_A3b|fb_build.py --tag fb --split re_lohi --aug none --steps 1 --evalevery 1

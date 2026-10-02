@@ -1,0 +1,808 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Codabench</title>
+    <link rel="icon" type="image/ico" href="/static/img/favicon.77b179e2bfbd.ico"/>
+
+    <!-- Vendor -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+    <link rel="stylesheet" href="/static/css/calendar.min.3ff298ddc5c7.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Overpass+Mono&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- Ours -->
+    <link rel="stylesheet" href="/static/generated/output.47a289ef8a2e.css">
+
+    <!-- Latex -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css">
+
+    
+    
+</head>
+<body>
+
+
+
+<!-- Sidebar Menu -->
+<div class="ui thin sidebar left inverted vertical overlay menu">
+    <div class="ui container">
+        <a href="/" class="item">Competitions</a>
+        <a class="item">Chahub</a>
+        <a href="https://chagrade.lri.fr/" class="item">Chagrade</a>
+    </div>
+</div>
+
+<div class="pusher">
+    <div id="hamburger_button">
+        <div class="ui icon button">
+            <i class="bars icon"></i>
+        </div>
+    </div>
+    <!-- Page Contents -->
+    <div id="header" class="ui inverted vertical center aligned segment masthead
+        ">
+        <div id="bg"></div>
+        <div class="ui container">
+            <div id="topleft_menu" class="ui secondary inverted menu">
+                <span class="left item">
+                    <a href="/" id="home-logo">
+                        <img class="ui mini image" src="/static/img/Cha_Logo.fb1c1d0bde8c.png">
+                    </a>
+                    <div class="ui search" id="site-wide-competition-search">
+                        <div class="ui left icon input search-width">
+                            <input id="competition-search" class="prompt" type="text" placeholder="Search Competitions">
+                            <i class="search icon"></i>
+                        </div>
+                        <div class="results search-width scrollable-height-limit"></div>
+                    </div>
+                </span>
+                <div class="right menu item">
+                    <a class="item" href="/competitions/public/">
+                        <i class="ui small trophy icon"></i>
+                        Benchmarks/Competitions
+                    </a>
+                    <a class="item" href="/datasets/public/">
+                        <i class="ui small database icon"></i>
+                        Datasets
+                    </a>
+                    
+                        <div selenium="user_dropdown" id="user_dropdown" class="ui dropdown item">
+                            <div class="text">
+                                <i class="icon user outline"></i>
+                                aryamannsr
+                            </div>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <!-- Admin management -->
+                                <div class="header">Admin management</div>
+                                    <a class="item" href="/server_status">Server Status</a>
+                                    
+                                <div class="ui divider"></div>
+                                <!-- My Resources -->
+                                <div class="header">My Resources</div>
+                                <a class="item" href="/competitions/"><i class="icon bi bi-trophy"></i>Competitions</a>
+                                <a selenium="resources" class="item" href="/tasks/"><i class="icon bi bi-folder"></i>Resources</a>
+                                <a class="item" href="/queues/"><i class="icon bi bi-hourglass"></i>Queues</a>
+                                <div class="ui divider"></div>
+                                <!-- Account -->
+                                <div class="header">Account</div>
+                                <a class="item" href="/profiles/user/aryamannsr/"><i class="icon bi bi-person"></i>View Profile</a>
+                                <a class="item" href="/profiles/user/aryamannsr/edit/"></i><i class="icon bi bi-pencil-square"></i>Edit profile</a>
+                                <a class="item" href="/accounts/user/aryamannsr/account/"><i class="icon bi bi-gear"></i>Settings</a>
+                                <a class="item" href="/profiles/user/aryamannsr/notifications/"></i><i class="icon bi bi-bell"></i>Notifications</a>
+                                <a class="item" href="/accounts/password_reset/"><i class="icon bi bi-lock"></i>Change Password</a>
+
+                                <a class="item" href="/accounts/logout/" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="icon bi bi-door-open"></i>Logout</a>
+                                <form id="logout-form" method="post" action="/accounts/logout/" style="display:none;"><input type="hidden" name="csrfmiddlewaretoken" value="SmZg9XFI4Ll0IggtKfTEnDoTBWzkLgn3Mr2V3KuFSH4l86gBQFIyWhiA2Tr14P9F"></form>
+                                <div class="ui divider"></div>
+
+                                <div class="header">Organizations</div>
+                            
+                                <a class="item" href="/profiles/organization/create/">
+                                    <i class="plus icon"></i>
+                                    Create Organization
+                                </a>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div id="page_content" class="ui container grid">
+    <div class="row">
+        
+    <div class="ui container">
+        
+            
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>NeurIPS 2026 RealPDE Competition - Track 1: Simulation-to-Real Transfer Learning Forum</h1>
+                        <a href="/competitions/17363/">
+                            <button class="ui button">
+                                Go back to competition
+                            </button>
+                        </a>
+                        
+
+                        
+                            <a href="/forums/17061/new_thread/">
+                                <button class="ui button primary">
+                                    Start a new topic
+                                </button>
+                            </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div class="row">
+                    <div class="forum-contact">
+                        <span>Contact Email: </span>
+                        <span class="forum-contact-email">realpde-competition@googlegroups.com</span>
+
+                    </div>
+                </div>
+                
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel forum-panel">
+                            
+    <div class="ui horizontal divider">Threads</div>
+    
+        <table class="ui single line table threads_list">
+            <thead>
+            <tr>
+                <th width="500px">
+                    Title
+                </th>
+                <th>
+                    Started by
+                </th>
+                <th>
+                    Date created
+                </th>
+                <th>
+                    Latest post
+                </th>
+                <th>
+                    Posts
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            
+                <tr>
+                    <td>
+                        
+                            <a href="/forums/pin/2592/"><i class="forum-pin-icon bi bi-pin-angle-fill" data-thread-pk="2592"></i></a>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2592/">FAQ: My submission failed with &quot;Transient platform storage error while downloading the bundle&quot;. What happened?</a>
+                    </td>
+                    <td><a href="/profiles/user/wenhao2026" target="_blank">wenhao2026</a></td>
+                    <td>Jul 24, 2026</td>
+                    <td>1 month</td>
+                    
+                    <td>1</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+                            <a href="/forums/pin/2673/"><i class="forum-pin-icon bi bi-pin-angle-fill" data-thread-pk="2673"></i></a>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2673/">Track 1 update: what breaks, and what happens to your score</a>
+                    </td>
+                    <td><a href="/profiles/user/wenhao2026" target="_blank">wenhao2026</a></td>
+                    <td>Aug 05, 2026</td>
+                    <td>3 weeks, 3 days</td>
+                    
+                    <td>8</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2738/">Platform submission bugs</a>
+                    </td>
+                    <td><a href="/profiles/user/np-user" target="_blank">np-user</a></td>
+                    <td>Aug 25, 2026</td>
+                    <td>5 days, 8 hours</td>
+                    
+                    <td>4</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2736/">Track1 Submission Failed</a>
+                    </td>
+                    <td><a href="/profiles/user/haidilao" target="_blank">haidilao</a></td>
+                    <td>Aug 25, 2026</td>
+                    <td>5 days, 8 hours</td>
+                    
+                    <td>2</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2734/">Stuck Submission</a>
+                    </td>
+                    <td><a href="/profiles/user/roysegal" target="_blank">roysegal</a></td>
+                    <td>Aug 24, 2026</td>
+                    <td>6 days, 3 hours</td>
+                    
+                    <td>2</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2714/">ScoreBoard (NaN and wrong orders ?)</a>
+                    </td>
+                    <td><a href="/profiles/user/pelikon" target="_blank">pelikon</a></td>
+                    <td>Aug 20, 2026</td>
+                    <td>1 week, 3 days</td>
+                    
+                    <td>2</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2713/">Repeated &quot;Transient platform storage error&quot; on submission bundle download (Track 1)</a>
+                    </td>
+                    <td><a href="/profiles/user/zhoubojian" target="_blank">zhoubojian</a></td>
+                    <td>Aug 20, 2026</td>
+                    <td>5 days, 8 hours</td>
+                    
+                    <td>2</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2702/">Clarification on Blank Regions in the Real PIV Data</a>
+                    </td>
+                    <td><a href="/profiles/user/erichao" target="_blank">erichao</a></td>
+                    <td>Aug 14, 2026</td>
+                    <td>2 weeks, 2 days</td>
+                    
+                    <td>2</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2694/">Score failed issue</a>
+                    </td>
+                    <td><a href="/profiles/user/simon-zhou" target="_blank">simon-zhou</a></td>
+                    <td>Aug 11, 2026</td>
+                    <td>2 weeks, 1 day</td>
+                    
+                    <td>3</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2691/">Codex use and prize attendance</a>
+                    </td>
+                    <td><a href="/profiles/user/hangglider5" target="_blank">hangglider5</a></td>
+                    <td>Aug 10, 2026</td>
+                    <td>5 days, 22 hours</td>
+                    
+                    <td>3</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2690/">Public Test size as a fraction of the Private Test</a>
+                    </td>
+                    <td><a href="/profiles/user/roysegal" target="_blank">roysegal</a></td>
+                    <td>Aug 09, 2026</td>
+                    <td>3 weeks</td>
+                    
+                    <td>2</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2682/">[Possible data issue] &#x27;7575_0.h5&#x27; and &#x27;6300_0.h5&#x27; contain identical PIV data</a>
+                    </td>
+                    <td><a href="/profiles/user/benslash2" target="_blank">benslash2</a></td>
+                    <td>Aug 06, 2026</td>
+                    <td>2 weeks, 5 days</td>
+                    
+                    <td>2</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2678/">Team Creation</a>
+                    </td>
+                    <td><a href="/profiles/user/spsanps" target="_blank">spsanps</a></td>
+                    <td>Aug 05, 2026</td>
+                    <td>3 weeks, 3 days</td>
+                    
+                    <td>2</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2653/">Track 1 clarification on batch-level inference</a>
+                    </td>
+                    <td><a href="/profiles/user/samyiming99" target="_blank">samyiming99</a></td>
+                    <td>Aug 02, 2026</td>
+                    <td>3 weeks, 5 days</td>
+                    
+                    <td>3</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2648/">[Exalted Joseph] Anomaly Report</a>
+                    </td>
+                    <td><a href="/profiles/user/exaltedjoseph" target="_blank">exaltedjoseph</a></td>
+                    <td>Aug 01, 2026</td>
+                    <td>3 weeks, 6 days</td>
+                    
+                    <td>5</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2616/">I canceled the submission, but why the chance is not given back?</a>
+                    </td>
+                    <td><a href="/profiles/user/smartparticles" target="_blank">smartparticles</a></td>
+                    <td>Jul 29, 2026</td>
+                    <td>1 month</td>
+                    
+                    <td>2</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2609/">Transient platform storage error while downloading the submission&#x27; bundle; not a problem with your submission. Please resubmit</a>
+                    </td>
+                    <td><a href="/profiles/user/smartparticles" target="_blank">smartparticles</a></td>
+                    <td>Jul 28, 2026</td>
+                    <td>1 month</td>
+                    
+                    <td>3</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2608/">*, not a problem of your submission, pls resubmit</a>
+                    </td>
+                    <td><a href="/profiles/user/w9999z" target="_blank">w9999z</a></td>
+                    <td>Jul 27, 2026</td>
+                    <td>1 month</td>
+                    
+                    <td>4</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2599/">Starting kit update: CNO baseline now loads inside the evaluation container</a>
+                    </td>
+                    <td><a href="/profiles/user/wenhao2026" target="_blank">wenhao2026</a></td>
+                    <td>Jul 25, 2026</td>
+                    <td>1 month</td>
+                    
+                    <td>1</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2597/">Inference hardware allocation</a>
+                    </td>
+                    <td><a href="/profiles/user/amitaharoni" target="_blank">amitaharoni</a></td>
+                    <td>Jul 25, 2026</td>
+                    <td>1 month</td>
+                    
+                    <td>2</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2590/">Platform storage/queue incident (Jul 22–24) resolved — resubmit if you were affected</a>
+                    </td>
+                    <td><a href="/profiles/user/wenhao2026" target="_blank">wenhao2026</a></td>
+                    <td>Jul 24, 2026</td>
+                    <td>1 month</td>
+                    
+                    <td>1</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2573/">Update: finals shortlist, joint-paper authorship, and advisor recognition</a>
+                    </td>
+                    <td><a href="/profiles/user/wenhao2026" target="_blank">wenhao2026</a></td>
+                    <td>Jul 22, 2026</td>
+                    <td>1 month</td>
+                    
+                    <td>3</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2572/">Starting kits updated — SPS interval bounds (T1 v6 / T2 v4)</a>
+                    </td>
+                    <td><a href="/profiles/user/wenhao2026" target="_blank">wenhao2026</a></td>
+                    <td>Jul 22, 2026</td>
+                    <td>1 month, 1 week</td>
+                    
+                    <td>1</td>
+                    
+                </tr>
+            
+                <tr>
+                    <td>
+                        
+
+                        <!-- Title -->
+                        <a href="/forums/17061/2548/">Notice: Warm-up submissions cleared (no impact on the official competition)</a>
+                    </td>
+                    <td><a href="/profiles/user/wenhao2026" target="_blank">wenhao2026</a></td>
+                    <td>Jul 18, 2026</td>
+                    <td>1 month, 1 week</td>
+                    
+                    <td>1</td>
+                    
+                </tr>
+            
+            </tbody>
+        </table>
+    
+
+<style>
+    .threads_list {
+        font-size: 15px !important;
+    }
+
+    .clickable-row {
+        transition: background-color 0.1s ease;
+    }
+
+    .clickable-row:hover {
+        background-color: #e0e1e2;
+        cursor: pointer;
+    }
+
+</style>
+
+                        </div>
+                    </div>
+                </div>
+            
+        
+    </div>
+    <style>
+        .ui.horizontal.divider {
+            font-size: 1.66rem !important;
+        }
+    </style>
+
+    </div>
+</div>
+<div class="ui inverted vertical footer segment">
+    <div class="ui container">
+        <div class="ui stackable inverted equal height stackable grid">
+            <div class="three wide column">
+                <h4 class="ui inverted header">Chasuite</h4>
+                <div class="ui inverted link list">
+                    <a href="https://codalab.lisn.fr/" class="item">Competitions v1.6</a>
+                    <a href="http://chahub.org/" class="item">Chahub</a>
+                    <a href="https://chagrade.lri.fr/" class="item">Chagrade</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">About</h4>
+                <div class="ui inverted link list">
+                    <a href="https://github.com/codalab/codalab-competitions/wiki/Project_About_CodaLab" class="item">About</a>
+                    <a href="https://github.com/codalab/codabench" class="item">Github</a>
+                    <a href="https://github.com/codalab/codalab-competitions/wiki/Privacy" class="item">Privacy and Terms</a>
+                    <a href="/api/docs/" class="item">API Docs</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header">CodaBench</h4>
+                <p>Join us on <a href="https://github.com/codalab/codabench" target="_blank">Github</a> for contact &amp; bug reports</p>
+                <p>Questions about the platform? See our <a href="https://docs.codabench.org" target="_blank">Docs</a> for more information.</p>
+            </div>
+        </div>
+    </div>
+    
+        <div id="version">
+            <a href="https://github.com/codalab/codabench/releases/tag/v1.31.2" target="_blank">v1.31.2</a>
+        </div>
+    
+</div>
+    
+    <user_switch></user_switch>
+
+    <!-- Vendor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"
+            integrity="sha256-7/yoZS3548fXSRXqc/xYzjsmuW3sFKzuvOCHd06Pmps=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/riot/3.13.2/riot+compiler.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="/static/js/calendar.min.fac7bf62754b.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.10/purify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@1.13.1/build/global/luxon.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/filesize/4.2.1/filesize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js" integrity="sha256-mLCPYHfNREhSETFQGuowilY3zBAZGnDO2cxCnCEm8/I=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.0.1/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@^2.0.5"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- Markdown-->
+    <script src="https://cdn.jsdelivr.net/npm/marked@3.0.7/marked.min.js"></script>
+    <!-- Latex -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js"></script>
+    <!-- Ours -->
+
+
+
+    <script>
+        
+        STORAGE_TYPE = "s3"
+        MAX_EXECUTION_TIME_LIMIT = "1200"
+        CURRENT_DATE_TIME = "2026-08-31T06:20:09.685206+00:00"
+        CODALAB = {
+            state: {
+                user: JSON.parse("{\u0022id\u0022: 78128, \u0022name\u0022: null, \u0022username\u0022: \u0022aryamannsr\u0022, \u0022email\u0022: \u0022aryamanns23@iitk.ac.in\u0022, \u0022bio\u0022: null, \u0022is_staff\u0022: false, \u0022is_superuser\u0022: false, \u0022logged_in\u0022: true}"),
+                public_env_variables: {
+                    MAX_EXECUTION_TIME_LIMIT:MAX_EXECUTION_TIME_LIMIT
+                }
+            }
+        }
+
+        
+        CODALAB.state.user.has_competition_admin_privileges = competition => {
+            let user = CODALAB.state.user
+            if (user.is_superuser || user.is_staff) {
+                return true
+            }
+            let collabs = _.map(competition.collaborators, collab => collab.username)
+            return user.username === competition.created_by || collabs.includes(user.username)
+        }
+
+        // Load in URLs or other django generated goodies
+        URLS = {
+            assets: {
+                header_particles: "/static/particles/header.5f19d11e84e3.json"
+            },
+            API: "/api/",
+            STATIC: function (file_name) {
+                return `/static/${file_name}`
+            },
+            // Websockets
+            //WS_SUBMISSION_LISTEN: ""
+
+            // Analytics
+            ANALYTICS_API: function (query_parameters) {
+                return "/api/analytics/" + `?${$.param(query_parameters)}`
+            },
+
+            // Competitions
+            COMPETITION_MANAGEMENT: "/competitions/",
+            COMPETITION_UPLOAD: "/competitions/upload/",
+            COMPETITION_ADD: "/competitions/create/",
+            COMPETITION_DETAIL: function (pk) {
+                return "/competitions/0/".replace(0, pk)
+            },
+            COMPETITION_EDIT: function (pk) {
+                return "/competitions/edit/0/".replace(0, pk)
+            },
+            SECRET_KEY_URL: function (pk, secret_key) {
+                var url = "/competitions/0/".replace(0, pk)
+                return `www.codabench.org${url}?secret_key=${secret_key}`
+            },
+            COMPETITION_GET_ZIP: function (pk) {
+                let urlBase = "/api/competitions/0/results/".replace(0, pk)
+                return urlBase.slice(0, -1) + ".zip"
+            },
+            COMPETITION_GET_CSV: function (pk, phase_id) {
+                let urlBase = "/api/competitions/0/results/".replace(0, pk)
+                let urlParam = "?phase=" + phase_id
+                return urlBase.slice(0, -1) + ".csv" + urlParam
+            },
+            COMPETITION_GET_JSON: function (pk) {
+                let urlBase = "/api/competitions/0/results/".replace(0, pk)
+                return urlBase.slice(0, -1) + ".json"
+            },
+            COMPETITION_GET_JSON_BY_ID: function (pk, phase_id) {
+                let urlBase = "/api/competitions/0/results/".replace(0, pk)
+                let urlParam = "?phase=" + phase_id
+                return urlBase.slice(0, -1) + ".json" + urlParam
+            },
+            // Forums
+            FORUM: function (pk) {
+                return "/forums/0/".replace(0, pk)
+            },
+            // Datasets
+            DATASET_MANAGEMENT: "/datasets/",
+            DATASET_DOWNLOAD: function (key) {
+                return "/datasets/download/0/".replace(0, key)
+            },
+            DATASET_DOWNLOAD_BY_PK: function (pk) {
+                return "/datasets/download/id/0/".replace(0, pk)
+            },
+            DATASET_CREATE: "/datasets/create/",
+            // Tasks
+            TASK_MANAGEMENT: "/tasks/",
+            TASK_DETAIL: function (pk) {
+                return "/tasks/0/".replace(0, pk)
+            },
+            LOGIN: "/accounts/login/",
+            SIGNUP: "/accounts/signup",
+
+        }
+        // Django returns <input type="hidden" value="csrf-token-secret"> so we just grab the `value` attribute from this
+        CSRF_TOKEN = $('<input type="hidden" name="csrfmiddlewaretoken" value="SmZg9XFI4Ll0IggtKfTEnDoTBWzkLgn3Mr2V3KuFSH4l86gBQFIyWhiA2Tr14P9F">').attr('value')
+
+        $(document).ready( function () {
+            $('#site-wide-competition-search').search({
+                apiSettings: {
+                    onResponse: function(codalabResponse) {
+                        _.forEach(codalabResponse, (response) => {
+                            response.url = URLS.COMPETITION_DETAIL(response.id)
+                        })
+                        return {
+                            results: codalabResponse,
+                        }
+                    },
+                    url: `${URLS.API}competitions/?search={query}`
+                },
+            })
+        })
+    </script>
+
+    <script src="/static/js/ours/client.eeead680461a.js"></script>
+    <script src="/static/js/ours/init.10d4a2033fec.js"></script>
+    <script src="/static/js/ours/riotjs_mixins.aebd794ac371.js"></script>
+    <script src="/static/js/ours/utils.bba00d0965f0.js"></script>
+    <script src="/static/js/jquery.form.serializer.193becf9d3c1.js"></script>
+    <script src="/static/js/Chart.bundle.8d4dd64cad39.js"></script>
+    <script src="/static/js/reconnecting-websocket.min.dec3415f9f08.js"></script>
+    <script src="/static/generated/riot.3804cbd9baaa.js"></script>
+    <script src="/static/js/ours/latex_markdown_html.64e2d4a95efa.js"></script>
+
+    
+    <script>
+        function redirect_post(url) {
+            var form = document.createElement('form');
+            document.body.appendChild(form);
+            form.method = 'post';
+            form.action = url;
+            $(form).append(`<input type="hidden" name="csrfmiddlewaretoken" value="SmZg9XFI4Ll0IggtKfTEnDoTBWzkLgn3Mr2V3KuFSH4l86gBQFIyWhiA2Tr14P9F">`);
+            form.submit();
+        }
+
+        $(document).ready( function () {
+            $('.remove-button').click(function (event) {
+                var thread_pk = event.target.dataset.threadPk
+                if (confirm("Are you sure you want to delete this?")) {
+                    redirect_post("/forums/17061/" + thread_pk + "/delete/")
+                }
+            })
+            $(".clickable-row").click(function(event) {
+                window.location = $(this).data("href")
+            })
+        })
+    </script>
+
+    
+    
+</body>
+</html>

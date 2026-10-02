@@ -1,0 +1,33 @@
+--- r12_armA.py
++++ r12_armA.py
+@@ -73,9 +73,12 @@
+     T_list.append(y)
+ P = np.concatenate(P_list, 0)
+ T = np.concatenate(T_list, 0)
+-rel_l2 = S.score_error(T, P, "rel_l2")
+-tke = S.score_error(T, P, "tke")
+-mvpe = S.score_error(T, P, "mvpe")
++
++rel_l2_err = float(np.mean(S.rel_l2_per_sample(P, T, 2)))
++tke_err = float(np.mean(S.tke_rel_l2_per_sample(P, T, 2)))
++rel_l2 = S.score_error(rel_l2_err)
++tke = S.score_error(tke_err)
++mvpe = S.score_error(S.mvpe_rel_l2(P, T))
+ print(f"Kit Base: rel_l2={rel_l2:.4f}, tke={tke:.4f}, mvpe={mvpe:.4f}")
+ assert abs(rel_l2 - 95.4738) < 0.002, f"G1 failed rel_l2: {rel_l2}"
+ assert abs(tke - 75.8957) < 0.002, f"G1 failed tke: {tke}"
+@@ -107,9 +110,11 @@
+             P_list.append(yt_pred.cpu().numpy())
+     P = np.concatenate(P_list, 0)
+     P[..., 2] = 0.0
+-    r = S.score_error(T, P, "rel_l2")
+-    t = S.score_error(T, P, "tke")
+-    m = S.score_error(T, P, "mvpe")
++    rel_l2_err = float(np.mean(S.rel_l2_per_sample(P, T, 2)))
++    tke_err = float(np.mean(S.tke_rel_l2_per_sample(P, T, 2)))
++    r = S.score_error(rel_l2_err)
++    t = S.score_error(tke_err)
++    m = S.score_error(S.mvpe_rel_l2(P, T))
+     d_acc = 0.669*(r - 95.4738) + 0.157*(t - 75.8957) + 0.170*(m - 96.0945)
+     return r, t, m, d_acc
+ 

@@ -1,0 +1,47 @@
+{
+ "leaves": {
+  "rep_w15_lr3": "{CK}/ft_fb_w15_lr3_final.pth",
+  "rep_w33_lr3": "{CK}/ft_fb_w33_lr3_final.pth",
+  "w15_lr6": "{CK}/ft_fb_w15_lr6_final.pth",
+  "w33_lr6": "{CK}/ft_fb_w33_lr6_final.pth",
+  "w15_lr10": "{CK}/ft_fb_w15_lr10_final.pth",
+  "w33_lr10": "{CK}/ft_fb_w33_lr10_final.pth",
+  "w15_lr3_12k": "{CK}/ft_fb_w15_lr3_12k_final.pth",
+  "w33_lr3_12k": "{CK}/ft_fb_w33_lr3_12k_final.pth",
+  "sv3_rep": "{CK}/ftaug_fb_sv3_3e5_s2000.pth",
+  "sv3_rep2": "{CK}/ftaug_fb_sv3_3e5_16k_s2000.pth",
+  "sv3_6e5": "{CK}/ftaug_fb_sv3_6e5_s2000.pth",
+  "sv3_1e4": "{CK}/ftaug_fb_sv3_1e4_s2000.pth",
+  "sv3_3e5_16k": "{CK}/ftaug_fb_sv3_3e5_16k_final.pth",
+  "sv3_3e5_sd207": "{CK}/ftaug_fb_sv3_3e5_sd207_s2000.pth",
+  "sv3_3e5_sd208": "{CK}/ftaug_fb_sv3_3e5_sd208_s2000.pth",
+  "sv3_1e4_sd207": "{CK}/ftaug_fb_sv3_1e4_sd207_s2000.pth",
+  "sv3_1e4_sd208": "{CK}/ftaug_fb_sv3_1e4_sd208_s2000.pth"
+ },
+ "arms": {
+  "C1_rep_ftall_lr3e5": {"b": "rep_w15_lr3", "d": "rep_w33_lr3"},
+  "C2_rep_sv3_3e5_s2000": {"s": "sv3_rep"},
+  "C2b_rep2_sv3_3e5_s2000": {"s": "sv3_rep2"},
+  "C3a_seed207_sv3_3e5": {"s": "sv3_3e5_sd207"},
+  "C3b_seed208_sv3_3e5": {"s": "sv3_3e5_sd208"},
+  "C4a_seed207_sv3_1e4": {"s": "sv3_1e4_sd207"},
+  "C4b_seed208_sv3_1e4": {"s": "sv3_1e4_sd208"},
+  "A1a_ftall_lr6e5": {"b": "w15_lr6", "d": "w33_lr6"},
+  "A1b_ftall_lr1e4": {"b": "w15_lr10", "d": "w33_lr10"},
+  "A2a_sv3_lr6e5_s2000": {"s": "sv3_6e5"},
+  "A2b_sv3_lr1e4_s2000": {"s": "sv3_1e4"},
+  "A3a_ftall_lr3e5_12k": {"b": "w15_lr3_12k", "d": "w33_lr3_12k"},
+  "A3b_sv3_lr3e5_16kfinal": {"s": "sv3_3e5_16k"},
+  "A4a_A1b+A2b": {"b": "w15_lr10", "d": "w33_lr10", "s": "sv3_1e4"},
+  "A4b_A3a+A2b": {"b": "w15_lr3_12k", "d": "w33_lr3_12k", "s": "sv3_1e4"},
+  "A4c_A1a+A2a": {"b": "w15_lr6", "d": "w33_lr6", "s": "sv3_6e5"}
+ },
+ "counterpart": {
+  "rep_w15_lr3": "w15_lr3", "rep_w33_lr3": "w33_lr3",
+  "w15_lr6": "w15_lr3", "w33_lr6": "w33_lr3",
+  "w15_lr10": "w15_lr3", "w33_lr10": "w33_lr3",
+  "w15_lr3_12k": "w15_lr3", "w33_lr3_12k": "w33_lr3",
+  "sv3_rep": "sv3", "sv3_rep2": "sv3", "sv3_6e5": "sv3", "sv3_1e4": "sv3", "sv3_3e5_16k": "sv3",
+  "sv3_3e5_sd207": "sv3", "sv3_3e5_sd208": "sv3", "sv3_1e4_sd207": "sv3", "sv3_1e4_sd208": "sv3"
+ }
+}

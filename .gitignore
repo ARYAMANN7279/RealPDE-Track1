@@ -1,0 +1,34 @@
+# ── Bulk: never committed ───────────────────────────────────────────────
+# Scoring archives (1.3 GB) — each bundles the 201 MB backbone.
+submissions/
+# Separate upstream repository, cloned here for reference (690 MB).
+underPINN/
+venv/
+# Competition data and starting kit, from the official release.
+data/
+starting_kit*/
+realpdebench/
+
+# ── Weights and large arrays ────────────────────────────────────────────
+*.pth
+*.pt
+*.h5
+*.arrow
+*.zip
+bounds_assets.npz
+tkehead_assets.npz
+arrays*.npz
+cache.npz
+tr_frames.npy
+train_work*/
+_vendor/
+
+# ── Noise ───────────────────────────────────────────────────────────────
+*.log
+__pycache__/
+*.pyc
+.DS_Store
+.ipynb_checkpoints/
+
+# Signed advisor letter — contains a handwritten signature.
+hipc_srs/Aryamann.pdf

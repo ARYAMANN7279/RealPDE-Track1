@@ -1,0 +1,9 @@
+# FITBASE queue 2 (resumed 11 Sep ~21:25 IST): screen A3b / C2b / A4 combos, then sv3-half SEED controls
+# (null: lr 3e-5 seeds 207/208; paired replication of A2b: lr 1e-4 seeds 207/208), all step-2000 snapshots.
+screen_A3b|fb_build.py --tag fb --split re_lohi --aug none --steps 1 --evalevery 1
+sv3_3e5_sd207|fb_r45.py --tag fb_sv3_3e5_sd207 --split none --aug none --bs 16 --wtke 0.10 --steps 16000 --seed 207 --lr 3e-5 --wd 1e-6 --evalevery 2000 --snap_at 2000 --stop_at 2000 --gpu 0
+sv3_1e4_sd207|fb_r45.py --tag fb_sv3_1e4_sd207 --split none --aug none --bs 16 --wtke 0.10 --steps 16000 --seed 207 --lr 1e-4 --wd 1e-6 --evalevery 2000 --snap_at 2000 --stop_at 2000 --gpu 0
+screen_C3a|fb_build.py --tag fb --split re_lohi --aug none --steps 1 --evalevery 1
+sv3_3e5_sd208|fb_r45.py --tag fb_sv3_3e5_sd208 --split none --aug none --bs 16 --wtke 0.10 --steps 16000 --seed 208 --lr 3e-5 --wd 1e-6 --evalevery 2000 --snap_at 2000 --stop_at 2000 --gpu 0
+sv3_1e4_sd208|fb_r45.py --tag fb_sv3_1e4_sd208 --split none --aug none --bs 16 --wtke 0.10 --steps 16000 --seed 208 --lr 1e-4 --wd 1e-6 --evalevery 2000 --snap_at 2000 --stop_at 2000 --gpu 0
+screen_C3b|fb_build.py --tag fb --split re_lohi --aug none --steps 1 --evalevery 1

@@ -1,0 +1,438 @@
+<title>Crossing 79</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+  :root{
+    --ground:#EEF1F2; --surface:#FCFCFB; --sunk:#E4E9EA;
+    --ink:#12181C; --ink-2:#37474F; --muted:#5F7078; --faint:#8A9AA1;
+    --rule:#D8DFE1; --rule-strong:#BCC7CA;
+    --s1:#1F6FB2; --s2:#B26A00;
+    --signal:#A81B4A; --good:#1B6E52;
+    --chip:#E2E9EE; --chip-ink:#2A4E68;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0C1216; --surface:#141C20; --sunk:#101821;
+      --ink:#E6EDEF; --ink-2:#C3D0D5; --muted:#8DA0A8; --faint:#6B7E86;
+      --rule:#223036; --rule-strong:#33454C;
+      --s1:#4590CE; --s2:#C08122;
+      --signal:#F2799B; --good:#4FB98C;
+      --chip:#17262F; --chip-ink:#8FBBD9;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0C1216; --surface:#141C20; --sunk:#101821;
+    --ink:#E6EDEF; --ink-2:#C3D0D5; --muted:#8DA0A8; --faint:#6B7E86;
+    --rule:#223036; --rule-strong:#33454C;
+    --s1:#4590CE; --s2:#C08122;
+    --signal:#F2799B; --good:#4FB98C;
+    --chip:#17262F; --chip-ink:#8FBBD9;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--ground); color:var(--ink);
+    font-family:"Source Serif 4",Georgia,serif; font-size:17px; line-height:1.62;
+    margin:0; padding:0 20px 96px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:840px;margin:0 auto;}
+  .col{max-width:640px;}
+
+  h1,h2,h3,.eyebrow,th,.num,.chip,.tag{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;}
+  h1{font-size:clamp(38px,7vw,60px);line-height:1.0;font-weight:700;letter-spacing:-.028em;margin:0;text-wrap:balance;}
+  h2{font-size:24px;font-weight:600;letter-spacing:-.014em;line-height:1.2;margin:0;text-wrap:balance;}
+  h3{font-size:16px;font-weight:600;letter-spacing:-.005em;margin:0;text-wrap:balance;}
+  p{margin:0;}
+  a{color:var(--s1);}
+
+  .eyebrow{
+    font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);margin:0;
+  }
+  code,.mono,.num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;}
+  code{font-size:.87em;background:var(--sunk);padding:.12em .38em;border-radius:3px;color:var(--ink-2);}
+
+  /* ---- rhythm ---- */
+  header{padding:64px 0 0;}
+  .stack{display:flex;flex-direction:column;gap:18px;}
+  section{display:flex;flex-direction:column;gap:20px;padding:52px 0 0;}
+  section + section{border-top:1px solid var(--rule);margin-top:52px;}
+  .sechead{display:flex;flex-direction:column;gap:7px;}
+
+  /* ---- hero gap strip ---- */
+  .gap{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;
+    background:var(--rule);border:1px solid var(--rule);border-radius:5px;overflow:hidden;margin-top:34px;
+  }
+  .gap > div{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:5px;}
+  .gap .k{font-family:Archivo,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+  .gap .v{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:26px;font-weight:500;letter-spacing:-.02em;line-height:1;}
+  .gap .s{font-size:13px;color:var(--muted);line-height:1.35;font-family:"Source Serif 4",serif;}
+  .v.hi{color:var(--signal);}
+  .v.ok{color:var(--good);}
+
+  /* ---- tables ---- */
+  .tw{overflow-x:auto;border:1px solid var(--rule);border-radius:5px;background:var(--surface);}
+  table{border-collapse:collapse;width:100%;font-size:14px;min-width:600px;}
+  th{
+    font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+    text-align:right;padding:11px 13px;border-bottom:1px solid var(--rule-strong);white-space:nowrap;
+  }
+  th:first-child,td:first-child{text-align:left;}
+  td{
+    padding:9px 13px;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap;
+    font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:13.5px;color:var(--ink-2);
+  }
+  td:first-child{font-family:Archivo,sans-serif;font-size:13.5px;color:var(--ink);font-weight:500;}
+  tr:last-child td{border-bottom:none;}
+  tr.me td{background:var(--sunk);color:var(--ink);}
+  tr.me td:first-child{font-weight:700;}
+  .fn{font-size:11.5px !important;color:var(--faint) !important;text-align:left !important;white-space:nowrap;}
+  caption{caption-side:bottom;text-align:left;padding:11px 13px;font-size:13px;color:var(--muted);border-top:1px solid var(--rule);}
+
+  /* ---- charts ---- */
+  figure{margin:0;background:var(--surface);border:1px solid var(--rule);border-radius:5px;padding:20px 22px 18px;}
+  figcaption{font-size:13px;color:var(--muted);margin-top:16px;padding-top:13px;border-top:1px solid var(--rule);}
+  .bars{display:flex;flex-direction:column;gap:9px;}
+  .bar{display:grid;grid-template-columns:74px 1fr 62px;align-items:center;gap:12px;}
+  .bar .lab{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-2);text-align:right;}
+  .bar .track{height:15px;background:var(--sunk);border-radius:3px;position:relative;overflow:hidden;display:flex;}
+  .bar .fill{height:100%;border-radius:0 3px 3px 0;}
+  .bar .fill.a{background:var(--s1);}
+  .bar .fill.b{background:var(--s2);margin-left:2px;border-radius:0 3px 3px 0;}
+  .bar .val{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:12.5px;font-weight:500;text-align:right;color:var(--ink);}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:16px;}
+  .legend span{display:inline-flex;align-items:center;gap:7px;font-family:Archivo,sans-serif;font-size:12px;color:var(--muted);}
+  .sw{width:11px;height:11px;border-radius:2.5px;flex:none;}
+
+  /* ---- levers ---- */
+  .lever{background:var(--surface);border:1px solid var(--rule);border-radius:5px;padding:19px 21px;display:flex;flex-direction:column;gap:11px;}
+  .lhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;}
+  .lhead .n{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--faint);}
+  .worth{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:13px;color:var(--good);white-space:nowrap;}
+  .chip{
+    font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+    background:var(--chip);color:var(--chip-ink);padding:3px 8px;border-radius:3px;white-space:nowrap;
+  }
+  .lever p{font-size:15.5px;line-height:1.58;color:var(--ink-2);}
+  .lever .src{font-size:13px;color:var(--muted);border-left:2px solid var(--rule-strong);padding-left:12px;}
+
+  ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:8px;}
+  li{padding-left:.15em;}
+  .note{background:var(--sunk);border-left:3px solid var(--signal);padding:15px 18px;border-radius:0 4px 4px 0;font-size:15.5px;line-height:1.55;}
+  .note strong{color:var(--signal);}
+  hr{border:none;border-top:1px solid var(--rule);margin:0;}
+  .foot{padding-top:44px;margin-top:52px;border-top:1px solid var(--rule);font-size:13.5px;color:var(--muted);}
+  @media (max-width:560px){
+    body{font-size:16px;padding:0 15px 72px;}
+    .bar{grid-template-columns:60px 1fr 54px;gap:9px;}
+  }
+</style>
+
+<div class="wrap">
+
+<header class="stack">
+  <p class="eyebrow">RealPDE Track 1 &#183; Codabench 17363 &#183; 26 Aug 2026</p>
+  <h1>Crossing 79</h1>
+  <p class="col" style="font-size:19px;line-height:1.5;color:var(--ink-2);">
+    &#167;20 concluded that 79 is unreachable with this model. The live board disagrees &#8212; and names
+    the team that proves it. Here is where the 0.54 actually is, and the four levers that have
+    never been touched.
+  </p>
+
+  <div class="gap">
+    <div><span class="k">Banked</span><span class="v">78.4566</span><span class="s">SOUP_v1, rank 110 / 212</span></div>
+    <div><span class="k">Target</span><span class="v hi">79.0000</span><span class="s">92 teams already there</span></div>
+    <div><span class="k">Gap</span><span class="v hi">+0.5434</span><span class="s">&#8776; 1.7 sps, or 3.3 tke</span></div>
+    <div><span class="k">Slots left</span><span class="v ok">~32</span><span class="s">1/UTC day to 27 Sep</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="sechead col">
+    <p class="eyebrow">The row that changes the verdict</p>
+    <h2>A team with our accuracy is at 79.08</h2>
+  </div>
+  <p class="col">
+    <code>decem</code> has, to within noise, our model: rel_l2 94.15 vs our 94.05, tke 76.03 vs
+    our 76.00, mvpe 93.03 vs our 92.87. They score <strong>79.08</strong>. The entire difference
+    is <strong>+1.70 sps and +1.29 time</strong> &#8212; no accuracy improvement at all. Feeding those
+    deltas through the fitted formula reproduces their score from ours to 0.05, so the comparison
+    is trustworthy.
+  </p>
+
+  <div class="tw">
+    <table>
+      <caption>Force_Best rows, task 35362, pulled 26 Aug. E = sps / (100&#183;W), with W recomputed from <code>scoring.py</code>.</caption>
+      <thead><tr><th>team</th><th>final</th><th>rel_l2</th><th>tke</th><th>mvpe</th><th>time</th><th>sps</th><th>E</th><th class="fn">file</th></tr></thead>
+      <tbody>
+        <tr class="me"><td>us &#8212; SOUP_v1</td><td>78.46</td><td>94.05</td><td>76.00</td><td>92.87</td><td>90.32</td><td>34.37</td><td>0.5020</td><td class="fn">submission_SOUP_v1.zip</td></tr>
+        <tr><td>decem</td><td>79.08</td><td>94.15</td><td>76.03</td><td>93.03</td><td>91.61</td><td>36.07</td><td>0.5251</td><td class="fn">submission_r04_real_best.zip</td></tr>
+        <tr><td>eureka10shen</td><td>79.17</td><td>94.39</td><td>76.68</td><td>93.48</td><td>91.68</td><td>35.51</td><td>0.5104</td><td class="fn">realpde_track1_direct20_raw_v3.zip</td></tr>
+        <tr><td>sakibs</td><td>79.37</td><td>94.82</td><td>75.19</td><td>93.90</td><td>85.98</td><td>38.11</td><td>0.5457</td><td class="fn">BEST_constant.zip</td></tr>
+        <tr><td>spochinapeddi</td><td>80.00</td><td>94.77</td><td>75.69</td><td>93.58</td><td>86.75</td><td>40.39</td><td>0.5788</td><td class="fn">sub14_peraoa_lead.zip</td></tr>
+        <tr><td>benslash2</td><td>80.74</td><td>95.01</td><td>74.70</td><td>94.03</td><td>92.21</td><td>40.96</td><td>0.5851</td><td class="fn">stf_sps_b210.zip</td></tr>
+        <tr><td>np-user (#1)</td><td>81.76</td><td>94.67</td><td>79.52</td><td>94.12</td><td>91.86</td><td>43.91</td><td>0.6135</td><td class="fn">opt_ft12dp02_ema999_tkehead_b210.zip</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <figure>
+    <div class="bars">
+      <div class="bar"><span class="lab">sps</span><span class="track"><span class="fill a" style="width:100%"></span></span><span class="val">+0.369</span></div>
+      <div class="bar"><span class="lab">time</span><span class="track"><span class="fill a" style="width:35.0%"></span></span><span class="val">+0.129</span></div>
+      <div class="bar"><span class="lab">mvpe</span><span class="track"><span class="fill a" style="width:9.5%"></span></span><span class="val">+0.035</span></div>
+      <div class="bar"><span class="lab">rel_l2</span><span class="track"><span class="fill a" style="width:8.4%"></span></span><span class="val">+0.031</span></div>
+      <div class="bar"><span class="lab">tke</span><span class="track"><span class="fill a" style="width:1.4%"></span></span><span class="val">+0.005</span></div>
+    </div>
+    <figcaption>
+      Where <code>decem</code>'s +0.62 over us comes from, in final-score points. Accuracy contributes
+      0.071 of it. <strong>Bounds and latency carry 0.498.</strong>
+    </figcaption>
+  </figure>
+
+  <div class="note col">
+    <strong>The &#167;20 verdict does not survive this.</strong> Its arithmetic was sound but its
+    premise was narrow: it asked whether any <em>bounds signal we had already built</em> could reach
+    79 on our checkpoint. It never asked what a 79 actually costs on the board. It costs +1.7 sps &#8212;
+    which is below the worst sps of any team above 79.
+  </div>
+</section>
+
+<section>
+  <div class="sechead col">
+    <p class="eyebrow">Cohort shape</p>
+    <h2>Our bounds are the outlier, not our model</h2>
+  </div>
+  <p class="col">
+    Of the <strong>92 teams at or above 79</strong>, <strong>none</strong> has an sps at or below
+    ours. The floor of that cohort is 35.51 &#8212; we need 36.87. Meanwhile five of them have a
+    <em>worse</em> tke than ours, so the accuracy ceiling &#167;14 established is not what is holding
+    the score down.
+  </p>
+
+  <div class="tw">
+    <table style="min-width:520px;">
+      <caption>The 92 teams scoring &#8805; 79, by subscore, against us.</caption>
+      <thead><tr><th></th><th>us</th><th>cohort min</th><th>cohort median</th><th>cohort max</th></tr></thead>
+      <tbody>
+        <tr><td>sps</td><td>34.37</td><td>35.51</td><td>40.14</td><td>43.91</td></tr>
+        <tr><td>E (bounds efficiency)</td><td>0.5020</td><td>0.5104</td><td>0.5759</td><td>0.6135</td></tr>
+        <tr><td>tke</td><td>76.00</td><td>74.70</td><td>78.16</td><td>79.88</td></tr>
+        <tr><td>rel_l2</td><td>94.05</td><td>93.50</td><td>94.48</td><td>95.01</td></tr>
+        <tr><td>mvpe</td><td>92.87</td><td>91.79</td><td>93.53</td><td>94.13</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="col">
+    One row deserves particular attention: <code>sakibs</code> reaches E&nbsp;=&nbsp;0.5457 from a
+    file named <code>BEST_constant.zip</code>. Our own best constants gave E&nbsp;=&nbsp;0.4876 and
+    our learned head gives 0.5020. Constant bounds are not intrinsically capped where &#167;5B put them &#8212;
+    that cap is a property of <em>our error distribution's shape</em>, which is a model question, not
+    a bounds question.
+  </p>
+</section>
+
+<section>
+  <div class="sechead col">
+    <p class="eyebrow">Correction to the notes</p>
+    <h2>&#167;11A's W and E are wrong</h2>
+  </div>
+  <p class="col">
+    &#167;11A records W&nbsp;=&nbsp;0.6987 and E&nbsp;=&nbsp;0.4919 for SOUP_v1, and that anchor gets
+    quoted downstream. Recomputing W from <code>scoring.py</code> directly &#8212;
+    <code>S = 100/(1+0.5e)</code>, so <code>1&#8722;&#241;(e) = 0.5S/(200&#8722;1.5S)</code> &#8212; gives
+    <strong>W = 0.68459</strong>, which matches the real anchor &#167;19 measured (0.684538) to five
+    decimals. The correct value is <strong>E = 0.5020</strong>. &#167;19 already uses it; &#167;11A contradicts
+    it. Worth fixing before the next E projection is built on the wrong one.
+  </p>
+
+  <div class="sechead col" style="padding-top:14px;">
+    <h3>What one subscore point is actually worth</h3>
+  </div>
+  <p class="col">
+    Accuracy pays twice &#8212; directly, and again through W inside sps. But the W weights are
+    <code>0.5&#183;dm + 0.3&#183;tke + 0.2&#183;mvpe</code>, so <strong>rel_l2 carries the largest share of W</strong>,
+    not tke.
+  </p>
+
+  <figure>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--s1)"></i>direct weight in final</span>
+      <span><i class="sw" style="background:var(--s2)"></i>via W &#8594; sps</span>
+    </div>
+    <div class="bars">
+      <div class="bar"><span class="lab">rel_l2</span><span class="track"><span class="fill a" style="width:66.1%"></span><span class="fill b" style="width:33.9%"></span></span><span class="val">0.463</span></div>
+      <div class="bar"><span class="lab">mvpe</span><span class="track"><span class="fill a" style="width:47.1%"></span><span class="fill b" style="width:12.7%"></span></span><span class="val">0.277</span></div>
+      <div class="bar"><span class="lab">tke</span><span class="track"><span class="fill a" style="width:35.2%"></span><span class="fill b" style="width:9.5%"></span></span><span class="val">0.207</span></div>
+    </div>
+    <figcaption>
+      Final-score points per subscore point, at our operating point (E = 0.5020). For reference,
+      an sps point is worth 0.217 and a time point 0.100 &#8212; neither has a second channel.
+    </figcaption>
+  </figure>
+
+  <p class="col">
+    In raw-error space this is a 3.42:1 rel_l2-to-tke ratio, against the 3.04:1 that set
+    <code>w &#8712; [0.05, 0.15]</code> in &#167;8. That sits inside &#167;8's own plateau, so it is a nudge, not a
+    lever &#8212; worth stating plainly rather than overselling. <strong>The real finding in this table is
+    mvpe at 0.277</strong>, second only to rel_l2, and never optimised.
+  </p>
+</section>
+
+<section>
+  <div class="sechead col">
+    <p class="eyebrow">The plan</p>
+    <h2>Four levers with no measurement against them</h2>
+  </div>
+  <p class="col">
+    Every route in &#167;19A is a <em>bounds signal fitted post-hoc to a frozen model</em>, and that family
+    is genuinely closed. None of the following is in that family, and none appears in &#167;7's ruled-out
+    table or anywhere else in the notes.
+  </p>
+
+  <div class="lever">
+    <div class="lhead">
+      <span class="n">01</span><h3>Put mvpe in the fine-tuning loss</h3>
+      <span class="chip">never tested</span><span class="worth">&#8776; +0.18 to +0.35</span>
+    </div>
+    <p>
+      Grepping <code>project_memory.md</code> and <code>RESEARCH_aug18</code> for mvpe as a training
+      target returns <strong>nothing</strong> &#8212; no loss term, no experiment, no ruled-out row. It has
+      moved +0.03 across every fine-tune ever run, i.e. it has been along for the ride. At 0.277 per
+      point it is the second most valuable subscore we have, and we sit at 92.87 against a cohort
+      median of 93.53 and a board max of 94.13.
+    </p>
+    <p>
+      It is also unusually cheap to attack. <code>mvpe_rel_l2_per_sample</code> is a
+      <strong>time-averaged</strong> relative error over at most <strong>4 probe x-stations &#215; 9 probe
+      y-rows</strong> in the near wake &#8212; roughly 36 fixed pixels out of 8,192. A loss term on that
+      region barely perturbs rel_l2, and because it is time-averaged it rewards getting the mean
+      field right rather than the instantaneous one.
+    </p>
+    <p class="src">&#167;7's own prescription for the spectral correction was "do it as a fine-tuning loss
+    term instead", after the post-hoc version lost 1.47 time points. Same argument applies here.</p>
+  </div>
+
+  <div class="lever">
+    <div class="lhead">
+      <span class="n">02</span><h3>Shrink the bounds head 46&#215;</h3>
+      <span class="chip">measured, never shipped</span><span class="worth">&#8776; +0.10</span>
+    </div>
+    <p>
+      &#167;20 measured that a 13k-parameter head beats the shipped 606k one on <em>both</em> splits
+      (+0.0552 vs +0.0487 under Re-extrapolation) and then filed it as "not slot-worthy" because the
+      edge transfers at 10%. That reasoning missed the latency side: ROBUST scored time 91.36 with
+      constant bounds; SOUP_v1 scored 90.32 with the head. A model soup is a weight average &#8212; identical
+      architecture, identical FLOPs to its members &#8212; so <strong>that 1.04-point time loss is the head's
+      inference path, not the soup's</strong>. Shrinking it recovers most of it, and improves the head
+      on the measurement we already have. It rides along with any other submission at no extra cost.
+    </p>
+  </div>
+
+  <div class="lever">
+    <div class="lhead">
+      <span class="n">03</span><h3>All 81 trajectories <em>and</em> a longer schedule</h3>
+      <span class="chip">gap in the &#167;14 search</span><span class="worth">unquantified</span>
+    </div>
+    <p>
+      &#167;14 declared the recipe exhausted on seven axes, but the two relevant experiments were run
+      separately. Experiment A varied the data (72 vs 64 trajectories) <strong>at fixed steps</strong> &#8212;
+      and its own note says the result "under-trains at fixed steps", which is a confound, not a
+      finding. Experiment B varied the schedule on the <strong>64-trajectory split</strong>. More data
+      with a schedule scaled to match it was never run.
+    </p>
+    <p class="src">Board corroboration: <code>exp172_t1_pointtcn_all81_&#8230;</code> appears twice inside the
+    top 25 (simon-zhou #7, fluidsplat #23). "all81" is in the filename.</p>
+  </div>
+
+  <div class="lever">
+    <div class="lhead">
+      <span class="n">04</span><h3>EMA and dropout in the fine-tune</h3>
+      <span class="chip">board-corroborated</span><span class="worth">unquantified</span>
+    </div>
+    <p>
+      The #1 submission on the board is called
+      <code>opt_ft12dp02_ema999_tkehead_b210.zip</code>. Read it: <code>dp02</code> = dropout 0.2,
+      <code>ema999</code> = EMA 0.999, plus a dedicated tke head. Neither dropout nor EMA appears
+      anywhere in our notes. &#167;8's model soup averages <em>endpoints across separate runs</em>; EMA
+      averages <em>along a single trajectory</em> &#8212; a different estimator with different variance
+      behaviour under distribution shift, and the one axis of "weight averaging" &#167;14 did not vary.
+      Both are one-line changes to <code>finetune.py</code>.
+    </p>
+  </div>
+
+  <div class="lever">
+    <div class="lhead">
+      <span class="n">05</span><h3>Condition on angle of attack</h3>
+      <span class="chip">our own next hypothesis</span><span class="worth">unquantified</span>
+    </div>
+    <p>
+      &#167;20 lists three untested explanations for the unexplained 90% transfer loss and puts
+      angle-of-attack shift first &#8212; only Reynolds was ever tested, and Reynolds was refuted.
+      Independently, <code>spochinapeddi</code> sits at 80.00 with
+      <code>sub14_peraoa_lead.zip</code> &#8212; <em>per-AoA</em> &#8212; on a tke of 75.69, which is
+      <strong>below ours</strong>, and reaches E = 0.5788. That is a team beating us by 1.5 with a
+      worse model and an AoA-aware method, corroborating the hypothesis our own notes queued next.
+    </p>
+  </div>
+
+  <div class="lever">
+    <div class="lhead">
+      <span class="n">06</span><h3>Bracket the LUT width from below</h3>
+      <span class="chip">logical gap</span><span class="worth">&#177; 0.05</span>
+    </div>
+    <p>
+      &#167;19 concluded width 1.00 is proven optimal from two real anchors: 1.00 and 1.25. Both sit on the
+      <em>same side</em> of the peak. That bounds the optimum at &#8804; 1.25; it does not locate it at 1.00 &#8212;
+      the rest of the argument leans on the local curve's peak position transferring, which is the exact
+      assumption &#167;20 warns has failed four times. One anchor near 0.85 closes it properly. Low value,
+      but it is a real anchor and slots are not scarce.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="sechead col">
+    <p class="eyebrow">Sequencing</p>
+    <h2>Slots are not the constraint any more</h2>
+  </div>
+  <p class="col">
+    Roughly 32 submissions remain before the Development Phase closes on 27 Sep, and
+    <code>Force_Best</code> means 78.4566 cannot be lost. The scarce resource is <em>ideas that have
+    not already been measured</em> &#8212; which argues for spending slots on anchors that resolve
+    ambiguity, not only on candidates believed to be wins.
+  </p>
+  <div class="tw">
+    <table style="min-width:560px;">
+      <caption>Suggested order. Levers 02 and 06 ride along with whatever else ships that day.</caption>
+      <thead><tr><th>slot</th><th style="text-align:left">ship</th><th style="text-align:left">what it resolves</th></tr></thead>
+      <tbody>
+        <tr><td style="text-align:left">next</td><td class="fn" style="font-size:13.5px !important;color:var(--ink-2) !important;">SOUP_v1 + 13k head</td><td class="fn" style="font-size:13.5px !important;">recovers the time point; confirms &#167;20's small-head measurement live</td></tr>
+        <tr><td style="text-align:left">+1</td><td class="fn" style="font-size:13.5px !important;color:var(--ink-2) !important;">fine-tune with mvpe loss term</td><td class="fn" style="font-size:13.5px !important;">the largest untouched accuracy lever</td></tr>
+        <tr><td style="text-align:left">+2</td><td class="fn" style="font-size:13.5px !important;color:var(--ink-2) !important;">all81 + scaled schedule, EMA 0.999, dropout 0.2</td><td class="fn" style="font-size:13.5px !important;">closes the &#167;14 confound and the #1's named recipe at once</td></tr>
+        <tr><td style="text-align:left">+3</td><td class="fn" style="font-size:13.5px !important;color:var(--ink-2) !important;">LUT width 0.85</td><td class="fn" style="font-size:13.5px !important;">third anchor; brackets the width optimum</td></tr>
+        <tr><td style="text-align:left">+4</td><td class="fn" style="font-size:13.5px !important;color:var(--ink-2) !important;">AoA-conditioned bounds</td><td class="fn" style="font-size:13.5px !important;">&#167;20's first untested transfer-loss candidate</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="col" style="color:var(--muted);font-size:15px;">
+    Apply the 46% local&#8594;real haircut (&#167;11A) to every accuracy projection before deciding anything, and
+    work <code>TEST.md</code> in full each time &#8212; including the CPU-path gate added in &#167;16. Per &#167;17.1 a
+    failed submission still consumes the day, so one experiment per UTC day, and never read a second
+    same-day "Failed" as data.
+  </p>
+</section>
+
+<p class="foot col">
+  Board figures pulled live from the Codabench public API on 26 Aug 2026, filtered to task 35362 only
+  (never by task name &#8212; &#167;17.3). 212 Force_Best rows, one per competitor; our own non-best submissions
+  are not visible there. W recomputed from the starting kit's <code>scoring.py</code> and validated
+  against &#167;19's measured anchor to five decimals.
+</p>
+
+</div>
